@@ -14,15 +14,35 @@ After generation, choose **Unload AI from RAM** to release the local model witho
 
 ## Setup on another Windows PC
 
+Download this repository as a ZIP and **extract it first**, or clone it. Open the extracted project folder and double-click **Install-ThreadBack.cmd**. Keep the setup window open. It installs the local .NET SDK and Desktop Runtime, text AI, voice transcription, and image understanding, restores application libraries, builds ThreadBack, adds a desktop shortcut, and opens the app. No Python installation or API key is needed for these local features. If the Microsoft Visual C++ runtime needed by the AI workers is missing, setup downloads the [official Microsoft installer](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist), verifies its Microsoft signature, and installs it; Windows may ask for administrator approval. If it requires a restart, restart Windows and rerun setup.
+
+Use Windows 10 version 2004 or later, or Windows 11, on x64 (Intel/AMD) or ARM64. Allow roughly **6 GB of downloads and at least 12 GB of free disk space**. 16 GB RAM is recommended for the included models; this is not a guarantee of performance on every PC. Setup needs internet access to Microsoft, NuGet, GitHub, and Hugging Face. Completed downloads are checksum-verified and reused; interrupted transfers keep partial data for resuming. Logs are saved under `artifacts/verification/install-*.txt`. If setup fails, read the error and log before retrying.
+
+For command-line setup or optional settings:
+
 ```powershell
-./scripts/Setup.ps1
-./scripts/Setup-Voice.ps1
-./scripts/Run.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-ThreadBack.ps1
+# Smaller setup: text + voice, without the image model
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-ThreadBack.ps1 -SkipVision
+# Optional GPU runtime on Windows x64; select GPU in Model settings afterward
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-ThreadBack.ps1 -EnableGpu
 ```
 
-Setup downloads a project-local .NET SDK, CPU inference executables, and models from their official repositories. It verifies pinned SHA checksums. The preferred Qwen3 4B model is about 2.5 GB. Whisper Base English is about 148 MB. The earlier Qwen2.5 1.5B model remains a fallback on this development machine, with weaker classification quality. Download progress resumes after interrupted connections.
+After setup, use **ThreadBack.cmd** or the desktop shortcut. Keep the project folder in place; if you move it, rerun setup to refresh the shortcut. `-NoLaunch` finishes without opening the app; `-NoShortcut` skips the desktop shortcut. Setup uses CPU by default. NPU installation/testing is separate and remains unverified; the installer does not enable it.
 
-The app requires the .NET 10 Desktop Runtime. It is already installed on this development computer. The current package is framework-dependent; a self-contained package can be built with `./scripts/Package.ps1 -SelfContained` when runtime package downloads are available.
+### How the AI connects to ThreadBack
+
+Everything is installed inside the extracted project folder. The launcher sets `THREADBACK_ROOT` to that folder, and the app finds the following files automatically:
+
+| Feature | Runtime | Model |
+| --- | --- | --- |
+| Resume capsule generation | `.tools/llama/llama-server.exe` | `models/Qwen3-4B-Q4_K_M.gguf` |
+| Image understanding | Same llama.cpp runtime | `models/vision/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf` and its `mmproj` projector |
+| Voice transcription | `whisper-cli.exe` inside `.tools/whisper` | `models/ggml-base.en.bin` |
+
+ThreadBack starts the required local worker when you use a feature. Text and image workers communicate with the app through authenticated connections on `127.0.0.1`; voice runs as a local process. There is no manual server configuration. Models, prompts, images, and recordings are processed on the PC. Windows supplies OCR and audio decoding. The .NET SDK includes the Desktop Runtime, and the launcher uses the project-local .NET host, so a separate system-wide .NET install is not required for this setup route.
+
+The standalone MSIX is a separate packaging route and does not include these model downloads. A self-contained package can be built with `./scripts/Package.ps1 -SelfContained` when runtime package downloads are available.
 
 ## What is implemented
 

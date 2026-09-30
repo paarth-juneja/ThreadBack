@@ -1,4 +1,4 @@
-param([switch]$Rebuild)
+param([switch]$Rebuild, [switch]$BuildOnly)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $dotnet = Join-Path $root '.tools/dotnet/dotnet.exe'
@@ -18,6 +18,7 @@ if ($Rebuild -or -not (Test-Path -LiteralPath $app)) {
         }
     }
 }
+if ($BuildOnly) { return }
 # Use the installed project .NET host in a separate process. On this machine,
 # directly invoking the DLL from the checking shell triggered Code Integrity
 # 0x800711C7, while this Start-Process route launched the same DLL successfully.

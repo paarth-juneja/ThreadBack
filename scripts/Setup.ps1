@@ -4,26 +4,18 @@ $ProgressPreference = 'SilentlyContinue'
 $root = Split-Path $PSScriptRoot -Parent
 $cache = Join-Path $root '.tools'
 New-Item -ItemType Directory -Force -Path $cache | Out-Null
+. (Join-Path $PSScriptRoot 'Download-Verified.ps1')
 function Fetch-Verified([string]$Url, [string]$Destination, [string]$Hash, [string]$Algorithm = 'SHA256') {
-    if ((Test-Path -LiteralPath $Destination) -and (Get-FileHash -LiteralPath $Destination -Algorithm $Algorithm).Hash -eq $Hash) { return }
-    $partial = "$Destination.partial"
-    for ($attempt = 1; $attempt -le 4; $attempt++) {
-        & curl.exe -4 --http1.1 --silent --show-error --fail --location --connect-timeout 15 --max-time 120 --speed-limit 1024 --speed-time 25 --continue-at - --output $partial $Url
-        if ($LASTEXITCODE -eq 0) { break }
-        Write-Output "Connection interrupted; resuming download (attempt $attempt of 4)."
-    }
-    if ($LASTEXITCODE -ne 0) { throw "Download incomplete. Rerun this script to resume: $Url" }
-    if ((Get-FileHash -LiteralPath $partial -Algorithm $Algorithm).Hash -ne $Hash) { throw "Checksum mismatch: $Destination" }
-    Move-Item -LiteralPath $partial -Destination $Destination -Force
+    Get-VerifiedDownload -Url $Url -Destination $Destination -Hash $Hash -Algorithm $Algorithm
 }
 if ($Component -in @('All','Sdk')) {
-    $architecture = if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq 'Arm64') { 'arm64' } else { 'x64' }
-    $metadata = Invoke-RestMethod 'https://builds.dotnet.microsoft.com/dotnet/release-metadata/10.0/releases.json'
-    $sdk = $metadata.releases.sdk | Where-Object { $_.version -eq '10.0.401' } | Select-Object -First 1
-    $asset = $sdk.files | Where-Object { $_.rid -eq "win-$architecture" -and $_.url.EndsWith('.zip') } | Select-Object -First 1
-    if (-not $asset) { throw 'Pinned .NET SDK asset not found.' }
-    Fetch-Verified $asset.url (Join-Path $cache 'sdk.zip') $asset.hash 'SHA512'
-    if (-not (Test-Path (Join-Path $cache 'dotnet/sdk/10.0.401'))) {
+    if (-not (Test-Path -LiteralPath (Join-Path $cache 'dotnet/sdk/10.0.401'))) {
+        $architecture = if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq 'Arm64') { 'arm64' } else { 'x64' }
+        $metadata = Invoke-RestMethod 'https://builds.dotnet.microsoft.com/dotnet/release-metadata/10.0/releases.json'
+        $sdk = $metadata.releases.sdk | Where-Object { $_.version -eq '10.0.401' } | Select-Object -First 1
+        $asset = $sdk.files | Where-Object { $_.rid -eq "win-$architecture" -and $_.url.EndsWith('.zip') } | Select-Object -First 1
+        if (-not $asset) { throw 'Pinned .NET SDK asset not found.' }
+        Fetch-Verified $asset.url (Join-Path $cache 'sdk.zip') $asset.hash 'SHA512'
         Expand-Archive -LiteralPath (Join-Path $cache 'sdk.zip') -DestinationPath (Join-Path $cache 'dotnet') -Force
     }
     Write-Output 'SDK ready.'

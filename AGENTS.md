@@ -1,5 +1,9 @@
 # Project instructions
 
+## GitHub publication
+
+Do not push commits to a remote unless the user explicitly asks for a push. Creating or changing files does not authorize publication.
+
 ## Failure limit
 
 For any single implementation or troubleshooting step, count distinct failed attempts across sessions. If more than four attempts fail (the fifth failure), stop retrying that step. Do not switch to slightly different variants of the same attempt to reset the count.
