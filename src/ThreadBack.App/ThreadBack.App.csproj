@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF><UseWindowsForms>true</UseWindowsForms><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ThreadBack</AssemblyName><ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets/ThreadBack.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../ThreadBack.Core/ThreadBack.Core.csproj" /></ItemGroup>
+  <ItemGroup><PackageReference Include="NAudio" Version="2.2.1" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets/ThreadBack.png" /><Resource Include="Assets/ThreadBack.ico" /></ItemGroup>
+<ItemGroup><Using Remove="System.Windows.Forms"/><Using Remove="System.Drawing"/></ItemGroup></Project>
+

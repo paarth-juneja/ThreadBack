@@ -1,0 +1,60 @@
+# Downloaded SDKs, inference runtimes, models, and generated packages/evidence.
+# Verification results stay on disk in artifacts/verification.
+/.tools/
+/models/
+/artifacts/
+
+# .NET build output and local IDE settings.
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.idea/
+
+# Python environments and caches (Qualcomm AI Hub scripts).
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Credentials and private signing material. Keep API keys outside this project.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.secrets/
+secrets/
+.qai_hub/
+.qai_hub_config
+qai_hub.conf
+*.dpapi
+*.pfx
+*.p12
+*.key
+*.pem
+
+# Personal captures and machine-specific shortcuts.
+/Recording.m4a
+/recordings/
+/captures/
+*.lnk
+
+# Logs, interrupted downloads, temporary files, and OS metadata.
+*.log
+*.partial
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+~$*
+.DS_Store
+Thumbs.db
+Desktop.ini

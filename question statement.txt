@@ -1,0 +1,26 @@
+All that you need to know about Snapdragon® AI Lab Build & Present Challenge
+Participants are invited to submit proposals aligned with the AI use case development. The proposed solution must be designed, developed, or intended to be optimized for Snapdragon-powered HP PCs. A proposal may be newly created or, if it existed before the Submission Period, significantly modified to add AI models from Qualcomm AI Hub or other open-source platforms.
+
+Visit Snapdragon AI Lab for more information:https://www.qualcomm.com/snapdragon/ai-lab
+
+
+What to Submit
+The proposed solution must be designed, developed, or intended to be optimised for Snapdragon-powered HP PCs.
+
+Proposal Requirements
+
+The proposal may be newly created.
+If the proposal existed before the Challenge Submission Period, it must have been significantly modified to add AI models from Qualcomm AI Hub or other open-source platforms.
+The proposal must be the work and/or idea solely owned by the participant.
+Only one submission per participant is permitted. If duplicate or multiple submissions are received, only the first will be considered eligible.
+A submission cannot be changed after it has been properly submitted on the Challenge Site. Participants should double-check all intake-form fields before submitting.
+Evaluation Criteria
+
+Criterion
+
+Technical Implementation
+Application Use Case &Innovation
+Deployment & Accessibility
+Presentation & Documentation
+Tie-breaking: Ties will first be resolved by comparing scores in the first applicable criterion listed above, then the next applicable criterion as needed. If a tie remains across all criteria, the judges will vote.
+
