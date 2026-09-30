@@ -58,3 +58,11 @@ qai_hub.conf
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Local instructions, development history, and submission material.
+/AGENTS.md
+/WORKING_NOTES.md
+/.local-archive/
+/final submition/
+/deliverables/
+/ss and instructions for ppt/
