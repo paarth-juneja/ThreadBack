@@ -45,4 +45,4 @@ Outputs go to ignored `artifacts/`. Packaging downloads Windows tools and create
 
 ## Licensing
 
-Review [THIRD_PARTY.md](THIRD_PARTY.md) before distributing models or binaries. The repository currently has no application-code license granting general reuse; the owner must choose one before presenting it as generally reusable open source. Contributor instructions do not grant additional license rights.
+ThreadBack's application code and documentation are licensed under the [MIT License](LICENSE). Contributions to those files are provided under the same license. Third-party components retain their own licenses; review [THIRD_PARTY.md](THIRD_PARTY.md) before distributing models or binaries.

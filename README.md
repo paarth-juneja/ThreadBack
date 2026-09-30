@@ -49,9 +49,13 @@ The launcher sets `THREADBACK_ROOT`; models and tools live beside the source in 
 
 ThreadBack is an early app. Source links and exact excerpt checks establish provenance, not the truth or quality of interpretations. Drafts can omit or misclassify information. Large screenshot-heavy tasks have encountered generation timeouts; a broadly validated fix remains pending. Keep concise progress notes and review output.
 
-The installer has passed a cached x64 check on the development PC. Fresh installation on a clean PC, ARM64 installation, live microphone acceptance, and supported installed-package OCR validation remain pending. Snapdragon application performance has not been independently verified in this repository. Qualcomm NPU integration is not included. Optional Intel OpenVINO NPU text execution requires a successful local validation marker; image understanding stays on CPU in that mode.
+The installer has passed a cached x64 check on the development PC. Fresh installation on a clean PC, ARM64 installation, live microphone acceptance, and supported installed-package OCR validation remain pending. Optional Intel OpenVINO NPU text execution requires a successful local validation marker; image understanding stays on CPU in that mode.
 
-The packaging script creates a development-signed MSIX, with optional self-contained .NET runtime. It does not bundle AI models or provide a production-trusted installer. This repository currently has no application-code license granting general reuse; third-party licenses are documented separately.
+The packaging script creates a development-signed MSIX, with optional self-contained .NET runtime. It does not bundle AI models or provide a production-trusted installer.
+
+## License
+
+ThreadBack's application code and documentation are licensed under the [MIT License](LICENSE), Copyright (c) 2026 Paarth Juneja. Third-party models, runtimes, and libraries retain their own licenses; see [THIRD_PARTY.md](THIRD_PARTY.md).
 
 ## Contribute
 
